@@ -8,4 +8,4 @@ try:
     sprite = BeautifulSoup(requests.get("https://growtopia.fandom.com/wiki/{}".format(Item["items"][0]["title"])).text, "html.parser")
     images = sprite.find('div', {"class": "card-header"}).img['src'] #result
 except:
-    print("Sorry! I can't",NameItem,'in Growtopia Fandom')
+    print("Sorry! I can't find",NameItem,'in Growtopia Fandom')
