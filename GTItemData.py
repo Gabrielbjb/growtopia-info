@@ -34,6 +34,7 @@ try:
         Result.update({DataResult[res].strip(): DataResult[res+1].strip()})
         res = res+2
 except:
-    print("Sorry! I can't find",NameItem,'in Growtopia Fandom")
+    print("Sorry! I can't find",NameItem,"in Growtopia Fandom")
 
 # All data will be saved to (Result)
+# Put item name in (NameItem)
