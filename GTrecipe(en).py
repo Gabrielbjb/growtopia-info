@@ -28,7 +28,8 @@ try:
                     Recipe[meh][((mes.find('th')).text).strip()] = (str(((BeautifulSoup(((str(mes.select('td')).replace("</td>", "space")).replace("</li>", "space")).replace("</span>", "space"), "html.parser").get_text(' ', strip=True)).replace("space", "")).replace("\n", "")).strip())
                     ws +=1
 except:
-    print("Sorry! I can't find",NameItem,'in Growtopia Fandom")
+    print("Sorry! I can't find",NameItem,"in Growtopia Fandom")
           
 # All data will be saved to (Recipe)
+# Put the item name in (NameItem)
 # Growtopia Wiki (id) is still not 100% supported
