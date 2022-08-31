@@ -3,8 +3,11 @@ from bs4 import BeautifulSoup
 
 Result = {}
 try:
-    ItemFinder = requests.get(f"https://growtopia.fandom.com/api/v1/SearchSuggestions/List?query={NameItem}").json()
-    ItemPage = requests.get("https://growtopia.fandom.com/wiki/{}".format(ItemFinder["items"][0]["title"]))
+    try:
+        ItemFinder = requests.get(f"https://growtopia.fandom.com/api/v1/SearchSuggestions/List?query={NameItem}").json()
+        ItemPage = requests.get("https://growtopia.fandom.com/wiki/{}".format(ItemFinder["items"][0]["title"]))
+    except:
+        print("It looks like we can't reach fandom.com")
     HTMLResult = BeautifulSoup(ItemPage.text, "html.parser")
     Properties = HTMLResult.find_all('div',  class_= "card-text")
     Data = HTMLResult.find('table', class_= "card-field")
@@ -31,6 +34,6 @@ try:
         Result.update({DataResult[res].strip(): DataResult[res+1].strip()})
         res = res+2
 except:
-    print("Sorry! I can't find",NameItem,'in Growtopia Fandom')
+    print("Sorry! I can't find",NameItem,'in Growtopia Fandom")
 
 # All data will be saved to (Result)
