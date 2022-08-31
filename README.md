@@ -1,2 +1,1 @@
-# growtopia-item-finder
-This code can search any items in Growtopia Fandom, including sprites, descriptions, and more!
+Welcome to growtopia-info! This code can search any info in Growtopia, like sprite, description, server status and more!
