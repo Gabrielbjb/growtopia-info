@@ -24,7 +24,7 @@ The output will look like this:
 ```
 
 #### Item Sprite
-The next code is Item Sprite, yes! You can use this package to search Growtopia Search! here is how's works, lets search Dirt:
+The next code is Item Sprite, yes! You can use this package to search Item Sprite! Lets search Dirt:
 ```python
 import GTInformation
 print(GTInformation.ItemSprite("Dirt"))
