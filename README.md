@@ -86,7 +86,8 @@ The output:
   'Beach Blast': '[ It can be found naturally generated in Beach-blasted worlds.]', 
   'Summer Surprise': '[ Chance to be dropped from breaking a: • Summer Surprise • Treasure Chest naturally-generated in a beach-blasted world , May yield 1 item each time.]', 
   'Splicing': '[ The tree of this item can be made by mixing the following seeds:, Aqua Block Seed Toilet Seed , ]', 
-  'Provider': '[ Drops in sets of 1-2 from harvesting a/an: Well ]', 'Special Event': '[ Found in the Beat The Heat! special event ., One has unlimited time to find\xa0? dropped Water Bucket.]'
+  'Provider': '[ Drops in sets of 1-2 from harvesting a/an: Well ]', 
+  'Special Event': '[ Found in the Beat The Heat! special event ., One has unlimited time to find\xa0? dropped Water Bucket.]'
 }
 ```
 
