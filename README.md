@@ -4,7 +4,7 @@ Welcome to growtopia-info! This code can search any info in Growtopia, like spri
 ## Download
 If you want to try this code, you can download it by writing this on CMD or PowerShell
 ```powershell
-PS> pip install Growtopia-Info==1.0.1
+PS> pip install Growtopia-Info
 ```
 
 ## Benefit
