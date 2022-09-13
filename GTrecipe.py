@@ -1,3 +1,6 @@
+import requests
+from bs4 import BeautifulSoup
+
 def ItemRecipe(NameItem, Region = "en"):
     try:
         ItemFinder = requests.get(f"https://growtopia.fandom.com/"+Region+"/api/v1/SearchSuggestions/List?query="+NameItem).json()
