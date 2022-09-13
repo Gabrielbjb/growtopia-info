@@ -21,11 +21,11 @@ print(GTInformation.GameData())
 The output will look like this:
 ```json
 {
-  'Online_User': '68056', 
-  'WOTDLink': 'https://www.growtopiagame.com/worlds/(current_WOTD).png', 
-  'WOTDName': '(current WOTD)', 
-  'GTTime': '09:53:00', 
-  'GTDate': '09/02/22'
+    "Online_User":"67767",
+    "WOTDLink":"https://www.growtopiagame.com/worlds/oillao.png",
+    "WOTDName":"OILLAO",
+    "GTTime":"09:42:09",
+    "GTDate":"09/13/22"
 }
 ```
 
