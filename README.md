@@ -39,9 +39,10 @@ print(GTInformation.ItemSprite("Dirt"))
 And here's the output:
 ```json
 {
-  'Item': 'https://static.wikia.nocookie.net/growtopia/images/8/8f/ItemSprites.png/revision/latest/window-crop/width/32/x-offset/640/y-offset/1440/window-width/32/window-height/32?format=webp&fill=cb-20220902090823', 
-  'Tree': 'https://static.wikia.nocookie.net/growtopia/images/e/e5/TreeSprites.png/revision/latest/window-crop/width/32/x-offset/640/y-offset/1440/window-width/32/window-height/32?format=webp&fill=cb-20220902090824', 
-  'Seed': 'https://static.wikia.nocookie.net/growtopia/images/9/9c/SeedSprites.png/revision/latest/window-crop/width/16/x-offset/320/y-offset/720/window-width/16/window-height/16?format=webp&fill=cb-20220902090823'
+    "Item":"https://static.wikia.nocookie.net/growtopia/images/8/8f/ItemSprites.png/revision/latest/window-crop/width/32/x-offset/32/y-offset/1152/window-width/32/window-height/32?format=webp&fill=cb-20220909151519",
+    "Tree":"https://static.wikia.nocookie.net/growtopia/images/e/e5/TreeSprites.png/revision/latest/window-crop/width/32/x-offset/32/y-offset/1152/window-width/32/window-height/32?format=webp&fill=cb-20220909151522",
+    "Seed":"https://static.wikia.nocookie.net/growtopia/images/9/9c/SeedSprites.png/revision/latest/window-crop/width/16/x-offset/16/y-offset/576/window-width/16/window-height/16?format=webp&fill=cb-20220909151520",
+    "Title":"Dirt"
 }
 ```
 
@@ -57,17 +58,30 @@ print(GTInformation.ItemData("Dirt"))
 The output:
 ```json
 {
-  'Rarity': 1, 
-  'Description': "Yep, it's dirt.", 
-  'Properties': 'None', 
-  'Type': 'Foreground Block - Foreground', 
-  'Chi': 'Earth', 
-  'Texture Type': '8 Directional', 
-  'Collision Type': 'Full Collision', 
-  'Hardness': '3 Hits 3 HitsRestores after 8s of inactivity.', 
-  'Seed Color': '#603913 #A67C52', 
-  'Grow Time': '31s', 
-  'Default Gems Drop': '0 - 1'
+    "Description":"Yep, it's dirt.",
+    "Properties":[
+        "None"
+    ],
+    "Rarity":1,
+    "Type":[
+        "Foreground Block",
+        "Foreground"
+    ],
+    "Chi":"Earth",
+    "Texture Type":"8 Directional",
+    "Collision Type":"Full Collision",
+    "Hardness":{
+        "Fist":"3",
+        "Pickaxe":"3",
+        "Restore":"8"
+    },
+    "Seed Color":[
+        "#603913",
+        "#A67C52"
+    ],
+    "Grow Time":"31s",
+    "Default Gems Drop":"0 - 1",
+    "Title":"Dirt"
 }
 ```
 
@@ -81,13 +95,49 @@ print(GTInformation.ItemRecipe("Water Bucket"))
 The output:
 ```json
 {
-  'Treasure Blast': '[ It can be found naturally generated in Treasure-blasted worlds.]', 
-  'Undersea Blast': '[ It can be found naturally generated in Undersea-blasted worlds.]', 
-  'Beach Blast': '[ It can be found naturally generated in Beach-blasted worlds.]', 
-  'Summer Surprise': '[ Chance to be dropped from breaking a: • Summer Surprise • Treasure Chest naturally-generated in a beach-blasted world , May yield 1 item each time.]', 
-  'Splicing': '[ The tree of this item can be made by mixing the following seeds:, Aqua Block Seed Toilet Seed , ]', 
-  'Provider': '[ Drops in sets of 1-2 from harvesting a/an: Well ]', 
-  'Special Event': '[ Found in the Beat The Heat! special event ., One has unlimited time to find\xa0? dropped Water Bucket.]'
+    "Treasure Blast":[
+        [
+            "It can be found naturally generated in Treasure-blasted worlds.",
+            ""
+        ]
+    ],
+    "Undersea Blast":[
+        [
+            "It can be found naturally generated in Undersea-blasted worlds.",
+            ""
+        ]
+    ],
+    "Beach Blast":[
+        [
+            "It can be found naturally generated in Beach-blasted worlds.",
+            ""
+        ]
+    ],
+    "Summer Surprise":[
+        [
+            "Chance to be dropped from breaking a: • Summer Surprise • Treasure Chest naturally-generated in a beach-blasted world",
+            "May yield 1 item each time."
+        ]
+    ],
+    "Splicing":[
+        [
+            "The tree of this item can be made by mixing the following seeds:",
+            "Aqua Block Seed Toilet Seed",
+            ""
+        ]
+    ],
+    "Provider":[
+        [
+            "Drops in sets of 1-2 from harvesting a/an: Well"
+        ]
+    ],
+    "Special Event":[
+        [
+            "Found in the Beat The Heat! special event .",
+            "One has unlimited time to find? dropped Water Bucket."
+        ]
+    ],
+    "Title":"Water Bucket"
 }
 ```
 
