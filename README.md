@@ -1,3 +1,4 @@
+![Banner](https://user-images.githubusercontent.com/111344809/189955249-85b71512-574e-47a3-8288-b0d4bc38d693.png)
 # Growtopia Info
 Welcome to growtopia-info! This code can search any info in Growtopia, like sprite, description, server status and more!
 
