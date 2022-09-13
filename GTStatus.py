@@ -1,3 +1,6 @@
+import requests
+from bs4 import BeautifulSoup
+
 def GameData():
     from datetime import datetime
     try:
