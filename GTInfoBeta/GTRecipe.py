@@ -1,9 +1,6 @@
-import requests
-from bs4 import BeautifulSoup
-
 def ItemRecipe(NameItem, Region = "en"):
     try:
-        ItemFinder = requests.get(f"https://growtopia.fandom.com/api/v1/SearchSuggestions/List?query={NameItem}").json()
+        ItemFinder = requests.get(f"https://growtopia.fandom.com/"+Region+"/api/v1/SearchSuggestions/List?query="+NameItem).json()
         try:
             ItemPage = requests.get("https://growtopia.fandom.com/"+Region+"/"+"wiki/"+ItemFinder["items"][0]["title"])
             try:
@@ -158,7 +155,7 @@ def ItemRecipe(NameItem, Region = "en"):
                 try:
                     return Result[ItemFinder["items"][0]["title"]]
                 except:
-                    if NameItem in Result:
+                    if NameItem in Result.keys():
                         return Result[NameItem]
                     else:
                         return Result
