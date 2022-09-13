@@ -98,12 +98,12 @@ Yeah...... i hate bug, especially cockroaches! Here's the list of bugs I found i
 * Sometimes you will get 403 Forbidden error (i cant fix this, because this is Growtopia's fault)
 
 #### Item Sprite
-* Page with tabber, tabview still not working
+* Page with tabber, tabview still not working (fixed! (only tabber!))
 
 #### Item Data
-* Page with tabber, tabview still not working
+* Page with tabber, tabview still not working (fixed! (only tabber!))
 
 #### Item Recipe
-* Page with tabber, tabview still not working
-* Duplicate template not working (ex: Pocong Clothes, Mine Laser Drill, and more)
-* Require template not working (ex: Rift Cape, Pegasus Chest, and more)
+* Page with tabber, tabview still not working (fixed! (only tabber!))
+* Duplicate template not working (ex: Pocong Clothes, Mine Laser Drill, and more) (fixed!)
+* Require template not working (ex: Rift Cape, Pegasus Chest, and more) (fixed!)
