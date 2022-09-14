@@ -141,6 +141,56 @@ The output:
     "Title":"Water Bucket"
 }
 ```
+## Features
+* With this package, you can also change different languages (if the page exists), here's some example code:
+```python
+import GTInformation
+print(GTInformation.ItemRecipe("Water Bucket", "id"))
+```
+
+The output:
+```json
+{
+    "Pencampuran":[
+        [
+            "Pohonnya dapat dibuat dengan cara Pencampuran :",
+            "Aqua Block Seed Toilet Seed",
+            ""
+        ]
+    ],
+    "Summer Surprise":[
+        [
+            "Kemungkinan didapat dengan cara menghanucrkan Summer Surprise atau dari Treasure Chest biasanya muncul secara alami di world pantai .",
+            "Player mungkin akan mendapatkan 1 item"
+        ]
+    ],
+    "Produksi":[
+        [
+            "1-2 Item ini diproduksi dari Well ."
+        ]
+    ],
+    "Special Event":[
+        [
+            "Dapat ditemukan di Beat The Heat! special event .",
+            "Player memiliki waktu tidak terbatas untuk menemukan? Water Bucket."
+        ]
+    ],
+    "Muncul Secara Alami":[
+        [
+            "Item ini muncul secara alami di world yang menggunakan: • Undersea Blast • Beach Blast • Treasure Blast"
+        ]
+    ],
+    "Tidak Tersedia Lagi":{
+        "Peluang Saat Menghancurkan":[
+            [
+                "1 item ini didapat dengan cara menghancurkan • Fishing Supply Crate"
+            ]
+        ]
+    },
+    "Title":"Water Bucket"
+}
+```
+Code language can be found in: https://community.fandom.com/wiki/Help:Language_code
 
 ## Bugs
 Yeah...... i hate bug, especially cockroaches! Here's the list of bugs I found in this package
