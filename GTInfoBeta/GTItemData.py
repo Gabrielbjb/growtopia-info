@@ -7,10 +7,10 @@ def ItemData(NameItem, Region = "en"):
         try:
             ItemPage = requests.get("https://growtopia.fandom.com/"+Region+"/"+"wiki/"+ItemFinder["items"][0]["title"])
             try:
-                Result = {"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region+" Error Code 2"}
+                wordcheck = None
+                Result = {}
                 HTMLResult = BeautifulSoup(ItemPage.text, "html.parser")
                 if len(HTMLResult.select(".gtw-card")) == 1:
-                    Result.pop("Error")
                     Properties = HTMLResult.find_all('div',  class_= "card-text")
                     Data = HTMLResult.select(".card-field")
                     Rarity = BeautifulSoup((str((HTMLResult.find('small'))).replace("(Rarity: ", "")).replace(")", ""), "html.parser").text
@@ -58,8 +58,8 @@ def ItemData(NameItem, Region = "en"):
                     except:    
                         ItemTitle = (HTMLResult.find('span', class_= "mw-headline").get_text(strip=True)).replace(u'\xa0', u' ')
                     Result["Title"] = ItemTitle
+                    wordcheck = True
                 elif len(HTMLResult.select(".gtw-card")) > 1:
-                    Result.pop("Error")
                     for HTMLResultTabber in HTMLResult.select(".gtw-card"):   
                         Result2 = {}   
                         PropertiesResult = []
@@ -113,16 +113,24 @@ def ItemData(NameItem, Region = "en"):
                             ItemTitle = (HTMLResultTabber.find('span', class_= "mw-headline").get_text(strip=True)).replace(u'\xa0', u' ')
                         Result[ItemTitle] = Result2
                         Result[ItemTitle]["Title"] = ItemTitle
-                try:
-                    return Result[ItemFinder["items"][0]["title"]]
-                except:
-                    if NameItem in Result.keys():
-                        return Result[NameItem]
-                    else:
-                        return Result
+                        wordcheck = False
+                if wordcheck == False:
+                    NameItem = NameItem.lower()
+                    word = []
+                    Result2 = {}
+                    for item in Result.keys():
+                        if NameItem in item.lower():
+                            word.append(item)
+                    for item2 in word:
+                        Result2[item2] = Result[item2]
+                    return Result2
+                elif wordcheck == True:
+                    return Result
+                else:
+                    return {"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region,"Error Code": "2"}
             except:
-                return({"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region+" Error Code 3"})            
+                return({"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region,"Error Code": "3"})            
         except IndexError:
-            return({"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region+" Error Code 2"})
+            return({"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region,"Error Code": "2"})
     except:
-        return({"Error": "It looks like we can't reach fandom.com "+Region+"! Try again later. Error Code 1"})
+        return({"Error": "It looks like we can't reach fandom.com "+Region+"! Try again later","Error Code": "1"})
