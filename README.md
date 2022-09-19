@@ -142,7 +142,7 @@ The output:
 }
 ```
 ## Features
-* With this package, you can also change different languages (if the page exists), here's some example code:
+* You can also change different languages (if the page exists), here's some example code:
 ```python
 import GTInformation
 print(GTInformation.ItemRecipe("Water Bucket", "id"))
@@ -190,7 +190,7 @@ The output:
     "Title":"Water Bucket"
 }
 ```
-Code language can be found in: https://community.fandom.com/wiki/Help:Language_code
+Language code can be found in: https://community.fandom.com/wiki/Help:Language_code
 
 ## Bugs
 Yeah...... i hate bug, especially cockroaches! Here's the list of bugs I found in this package
