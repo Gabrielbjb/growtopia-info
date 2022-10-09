@@ -7,6 +7,58 @@ def ItemData(NameItem, Region = "en"):
         try:
             ItemPage = requests.get("https://growtopia.fandom.com/"+Region+"/"+"wiki/"+ItemFinder["items"][0]["title"])
             try:
+                def checking(Result):
+                    check = 0
+                    for fix in Result.keys():
+                        theresult = Result[fix]
+                        if check == 3:
+                            Result[fix] = theresult.split(" - ")
+                        if check == 8:
+                            Result[fix] = theresult.split(" ")
+                        if check == 7:
+                            restore = []
+                            for number in theresult.split(" "):
+                                input = ""
+                                for number2 in number:
+                                    if number2.isdigit():
+                                        input = input+number2
+                                if input != "":
+                                    restore.append(input)
+                            Result[fix] = {
+                                    "Fist":restore[0],
+                                    "Pickaxe":restore[1],
+                                    "Restore":restore[2]
+                            }
+                        if check == 9:
+                            time = []
+                            growtime = {}
+                            for number in theresult.split(" "):
+                                input = ""
+                                for number2 in number:
+                                    if number2.isdigit():
+                                        input = input+number2
+                                if input != "":
+                                    time.append(input)
+                            format = ["Month","Week","Day","Hour","Minute","Second"]
+                            i = 0
+                            while i != len(time):
+                                growtime[format[((len(format))-1)-i]] = time[((len(time))-1)-i]
+                                i+=1
+                            Result[fix] = growtime
+
+                        if check == 10:
+                            gems = []
+                            if len(theresult.split(" - ")) == 1:
+                                gems.append(theresult.split(" - ")[0])
+                                gems.append(theresult.split(" - ")[0])
+                            else:
+                                gems.append(theresult.split(" - ")[0])
+                                gems.append(theresult.split(" - ")[1])                        
+                            Result[fix] = {
+                                    "Max":gems[1],
+                                    "Min":gems[0]
+                                }                                
+                        check +=1
                 wordcheck = None
                 Result = {}
                 HTMLResult = BeautifulSoup(ItemPage.text, "html.parser")
@@ -32,27 +84,7 @@ def ItemData(NameItem, Region = "en"):
                     while res <= (len(DataResult)-3):
                         Result.update({DataResult[res].strip(): DataResult[res+1].strip()})
                         res = res+2
-                    check = 0
-                    for fix in Result.keys():
-                        if check == 3:
-                            Result[fix] = Result[fix].split(" - ")
-                        if check == 8:
-                            Result[fix] = Result[fix].split(" ")
-                        if check == 7:
-                            restore = []
-                            for number in Result[fix].split(" "):
-                                input = ""
-                                for number2 in number:
-                                    if number2.isdigit():
-                                        input = input+number2
-                                if input != "":
-                                    restore.append(input)
-                            Result[fix] = {
-                                    "Fist":restore[0],
-                                    "Pickaxe":restore[1],
-                                    "Restore":restore[2]
-                            }
-                        check +=1
+                    checking(Result)
                     try:
                         ItemTitle = ((((HTMLResult.find('span', class_= "mw-headline")).small).decompose()).get_text(strip=True)).replace(u'\xa0', u' ')
                     except:    
@@ -85,28 +117,7 @@ def ItemData(NameItem, Region = "en"):
                         while res <= (len(DataResult)-3):
                             Result2.update({DataResult[res].strip(): DataResult[res+1].strip()})
                             res = res+2  
-
-                        check = 0
-                        for fix in Result2.keys():
-                            if check == 3:
-                                Result2[fix] = Result2[fix].split(" - ")
-                            if check == 8:
-                                Result2[fix] = Result2[fix].split(" ")
-                            if check == 7:
-                                restore = []
-                                for number in Result2[fix].split(" "):
-                                    input = ""
-                                    for number2 in number:
-                                        if number2.isdigit():
-                                            input = input+number2
-                                    if input != "":
-                                        restore.append(input)
-                                Result2[fix] = {
-                                        "Fist":restore[0],
-                                        "Pickaxe":restore[1],
-                                        "Restore":restore[2]
-                                }
-                            check +=1
+                        checking(Result2)
                         try:
                             ItemTitle = ((((HTMLResultTabber.find('span', class_= "mw-headline")).small).decompose()).get_text(strip=True)).replace(u'\xa0', u' ')
                         except:    
@@ -123,7 +134,11 @@ def ItemData(NameItem, Region = "en"):
                             word.append(item)
                     for item2 in word:
                         Result2[item2] = Result[item2]
-                    return Result2
+                    if len(Result2) == 1:
+                        for item3 in Result2.keys():
+                            return Result2[item3]
+                    else:
+                        return Result2
                 elif wordcheck == True:
                     return Result
                 else:
