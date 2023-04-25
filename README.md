@@ -12,6 +12,15 @@ PS> pip install Growtopia-Info==2.0.2
 ```powershell
 PS> pip install Growtopia-Info
 ```
+## Requiment
+requests
+```powershell
+PS> pip install requests
+```
+beautifulsoup
+```powershell
+PS> pip install beautifulsoup4
+```
 
 ## Benefit
 Once you install the package, you can use the package to search any items in Growtopia Fandom (ID/EN/ES)* and Server Status in Growtopia!
