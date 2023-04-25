@@ -3,7 +3,7 @@
 Welcome to growtopia-info! This code can search any info in Growtopia, like sprite, description, server status and more!
 
 ## Download
-If you want to try this code, you can download it by writing this on CMD or PowerShell
+If you want to try this code, you can download it by writing this on CMD, PowerShell or Terminal
 ### Stable
 ```powershell
 PS> pip install Growtopia-Info==2.0.2
