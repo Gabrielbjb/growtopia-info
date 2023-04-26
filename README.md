@@ -12,7 +12,7 @@ PS> pip install Growtopia-Info==2.0.2
 ```powershell
 PS> pip install Growtopia-Info
 ```
-## Requiment
+## Requirement
 requests
 ```powershell
 PS> pip install requests
