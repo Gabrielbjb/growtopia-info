@@ -30,9 +30,9 @@ def Render_World(world):
     def worldtime(time,type):
         dt = datetime.fromisoformat(time)
         result[type]["DateTime"] = time
-        result[type]["Date"] = dt.date()
-        result[type]["Time"] = dt.time()
-        result[type]["Timezone"] = dt.tzinfo
+        result[type]["Date"] = str(dt.date())
+        result[type]["Time"] = str(dt.time())
+        result[type]["Timezone"] = str(dt.tzinfo)
     r = requests.get(f"https://s3.amazonaws.com/world.growtopiagame.com/{world}.png", stream=True)   
     if "Access Denied" in str(r.content):
         result["Error"] = "World Not Found or Access Denied"
@@ -52,3 +52,5 @@ def Render_World(world):
             result["Error"] = "Something went wrong! Please report to owner if this error still occur"
     result["World"] = world.upper()
     return result
+
+print(Render_World("growtopia"))
