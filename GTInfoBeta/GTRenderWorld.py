@@ -52,5 +52,3 @@ def Render_World(world):
             result["Error"] = "Something went wrong! Please report to owner if this error still occur"
     result["World"] = world.upper()
     return result
-
-print(Render_World("growtopia"))
