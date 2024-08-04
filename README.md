@@ -222,4 +222,4 @@ Yeah...... i hate bug, especially cockroaches! Here's the list of bugs I found i
 * Page with tabber, tabview still not working (fixed! (only tabber!))
 * Duplicate template not working (ex: Pocong Clothes, Mine Laser Drill, and more) (fixed!)
 * Require template not working (ex: Rift Cape, Pegasus Chest, and more) (fixed!)
-* When you use this in page that use RecipeCrystal it wont show the the crystal (i cant fix this, unless they add the crystal name in the code like adding parameter in the link or something) *thanks cynthia for telling me this
+* When you use this in page that uses RecipeCrystal it wont show the the crystal (i cant fix this, unless they add the crystal name in the code like adding parameter in the link or something) *thanks cynthia for telling me this
