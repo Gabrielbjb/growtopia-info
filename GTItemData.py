@@ -1,92 +1,97 @@
 import requests
 from bs4 import BeautifulSoup
 
-def fun(HTMLResult, Result):
-    PropertiesResult = []
-    Properties = HTMLResult.find_all('div',  class_= "card-text")
-    Data = HTMLResult.select(".card-field")
-    Rarity = BeautifulSoup((str((HTMLResult.find('small'))).replace("(Rarity: ", "")).replace(")", ""), "html.parser").text
-    for add in Properties:
-        hum = BeautifulSoup(str(add).replace("<br/>", "--split--"), "html.parser")
-        PropertiesResult.append(hum.text)
-    properties = (PropertiesResult[1].strip()).split("--split--")
-    Result.update({"Description": PropertiesResult[0].strip()})
-    Result.update({"Properties": "None" if properties == ['None'] else properties})
+def parse_html_result(html_result, result):
+    properties_result = []
+    properties = html_result.find_all('div', class_="card-text")
+    data_fields = html_result.select(".card-field")
+    rarity_text = BeautifulSoup((str((html_result.find('small'))).replace("(Rarity: ", "")).replace(")", ""), "html.parser").text
+    
+    for property in properties:
+        parsed_property = BeautifulSoup(str(property).replace("<br/>", "--split--"), "html.parser")
+        properties_result.append(parsed_property.text)
+    
+    properties_list = (properties_result[1].strip()).split("--split--")
+    result.update({"Description": properties_result[0].strip()})
+    result.update({"Properties": "None" if properties_list == ['None'] else properties_list})
+    
     try:
-        Result.update({"Rarity": int(Rarity)})
+        result.update({"Rarity": int(rarity_text)})
     except:
-        Result.update({"Rarity": "None"})
-    DataResult = []
-    for typ in Data:
-        mus = BeautifulSoup((str(typ).replace("</tr>", ",")).replace("</th>", ","), "html.parser")
-        DataResult = (((mus.text).split(",")))
-    res = 0 
-    while res <= (len(DataResult)-3):
-        Result.update({DataResult[res].strip().replace(" ", ""): DataResult[res+1].strip()})
-        res = res+2
+        result.update({"Rarity": "None"})
+    
+    data_result = []
+    for data_field in data_fields:
+        parsed_data = BeautifulSoup((str(data_field).replace("</tr>", ",")).replace("</th>", ","), "html.parser")
+        data_result = (((parsed_data.text).split(",")))
+    
+    index = 0 
+    while index <= (len(data_result) - 3):
+        result.update({data_result[index].strip().replace(" ", ""): data_result[index + 1].strip()})
+        index += 2
+    
     check = 0
-    for fix in Result.keys():
+    for key in result.keys():
         if check == 3:
-            Result[fix] = Result[fix].split(" - ")
+            result[key] = result[key].split(" - ")
         if check == 8:
-            Result[fix] = Result[fix].split(" ")
+            result[key] = result[key].split(" ")
         if check == 7:
             restore = []
-            for number in Result[fix].split(" "):
-                input = ""
-                for number2 in number:
-                    if number2.isdigit():
-                        input = input+number2
-                if input != "":
-                    restore.append(input)
-            Result[fix] = {
-                    "Fist":restore[0],
-                    "Pickaxe":restore[1],
-                    "Restore":restore[2]
+            for number in result[key].split(" "):
+                digits = ""
+                for char in number:
+                    if char.isdigit():
+                        digits += char
+                if digits != "":
+                    restore.append(digits)
+            result[key] = {
+                "Fist": restore[0],
+                "Pickaxe": restore[1],
+                "Restore": restore[2]
             }
-        check +=1
+        check += 1
 
-def ItemData(NameItem, Region = "en"):
+def get_item_data(item_name, region="en"):
     try:
-        ItemFinder = requests.get(f"https://growtopia.fandom.com/"+Region+"/api/v1/SearchSuggestions/List?query="+NameItem).json()
+        search_response = requests.get(f"https://growtopia.fandom.com/{region}/api/v1/SearchSuggestions/List?query={item_name}").json()
         try:
-            ItemPage = requests.get("https://growtopia.fandom.com/"+Region+"/"+"wiki/"+ItemFinder["items"][0]["title"])
+            item_page_response = requests.get(f"https://growtopia.fandom.com/{region}/wiki/{search_response['items'][0]['title']}")
             try:
-                Result = {}
-                HTMLResult = BeautifulSoup(ItemPage.text, "html.parser")
-                if len(HTMLResult.select(".gtw-card")) == 1:
-                    fun(HTMLResult, Result)
-
+                result = {}
+                html_result = BeautifulSoup(item_page_response.text, "html.parser")
+                if len(html_result.select(".gtw-card")) == 1:
+                    parse_html_result(html_result, result)
                     try:
-                        ItemTitle = ((((HTMLResult.find('span', class_= "mw-headline")).small).decompose()).get_text(strip=True)).replace(u'\xa0', u' ')
+                        item_title = ((((html_result.find('span', class_="mw-headline")).small).decompose()).get_text(strip=True)).replace(u'\xa0', u' ')
                     except:    
-                        ItemTitle = (HTMLResult.find('span', class_= "mw-headline").get_text(strip=True)).replace(u'\xa0', u' ')
-                    Result["Title"] = ItemTitle
+                        item_title = (html_result.find('span', class_="mw-headline").get_text(strip=True)).replace(u'\xa0', u' ')
+                    result["Title"] = item_title
                 else:
-                    for HTMLResultTabber in HTMLResult.select(".gtw-card"):   
-                        Result2 = {}   
-                        fun(HTMLResultTabber, Result2)
+                    for html_result_tabber in html_result.select(".gtw-card"):   
+                        tabber_result = {}   
+                        parse_html_result(html_result_tabber, tabber_result)
                         try:
-                            ItemTitle = ((((HTMLResultTabber.find('span', class_= "mw-headline")).small).decompose()).get_text(strip=True)).replace(u'\xa0', u' ')
+                            item_title = ((((html_result_tabber.find('span', class_="mw-headline")).small).decompose()).get_text(strip=True)).replace(u'\xa0', u' ')
                         except:    
-                            ItemTitle = (HTMLResultTabber.find('span', class_= "mw-headline").get_text(strip=True)).replace(u'\xa0', u' ')
-                        Result[ItemTitle] = Result2
-                        Result[ItemTitle]["Title"] = ItemTitle
+                            item_title = (html_result_tabber.find('span', class_="mw-headline").get_text(strip=True)).replace(u'\xa0', u' ')
+                        result[item_title] = tabber_result
+                        result[item_title]["Title"] = item_title
                 try:
-                    return Result[ItemFinder["items"][0]["title"]]
+                    return result[search_response["items"][0]["title"]]
                 except:
-                    if NameItem in Result.keys():
-                        return Result[NameItem]
+                    if item_name in result.keys():
+                        return result[item_name]
                     else:
-                        return Result
+                        return result
             except:
-                return({"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region+" Error Code 3"})            
+                return {"Error": f"Sorry! I can't find {item_name} in Growtopia Fandom {region} Error Code 3"}            
         except IndexError:
-            return({"Error": "Sorry! I can't find "+NameItem+" in Growtopia Fandom "+Region+" Error Code 2"})
+            return {"Error": f"Sorry! I can't find {item_name} in Growtopia Fandom {region} Error Code 2"}
     except:
-        return({"Error": "It looks like we can't reach fandom.com "+Region+"! Try again later. Error Code 1"})
+        return {"Error": f"It looks like we can't reach fandom.com {region}! Try again later. Error Code 1"}
 
 # Example usage
 if __name__ == "__main__":
-    item = ItemData("ancestral tesseract")
+    item = get_item_data("dirt")
     print(item)
