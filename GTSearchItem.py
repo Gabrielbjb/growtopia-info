@@ -1,28 +1,33 @@
 import requests
 
-def SearchItem(ItemName):
+def SearchItem(item_name, allow_partial_match=True, show_url=True):
     try:
-        params = {
-            "action": "query",
-            "srlimit": 20,
-            "list": "search",
-            "srsearch": ItemName,
-            "format": "json"
-        }
-
-        response = requests.get("https://growtopia.fandom.com/api.php", params=params)
-        data = response.json()
-
-        items = [
-            {
+        if allow_partial_match: #Experimental
+            params = {
+                "action": "query",
+                "srlimit": 20,
+                "list": "search",
+                "srsearch": item_name,
+                "format": "json"
+            }
+            data = requests.get("https://growtopia.fandom.com/api.php", params=params).json()
+            items = [
+                {
+                    "title": item['title'],
+                    **({"url": f"https://growtopia.fandom.com/wiki/{item['title'].replace(' ', '_')}"} if show_url else {})
+                } for item in data['query']['search']
+                # Filter out items that are not actual items
+                if not any(kw in item['title'].lower() for kw in ['category:', 'update', 'disambiguation', 'week', 'mods/'])
+                and item_name.lower() in item['title'].lower()
+            ]
+            return items
+        else:
+            data = requests.get(f"https://growtopia.fandom.com/api/v1/SearchSuggestions/List?query={item_name}").json()
+            items = [{
                 "title": item['title'],
-                "url": f"https://growtopia.fandom.com/wiki/{item['title'].replace(' ', '_')}"
-            } for item in data['query']['search']
-            # Filter out items that are not actual items
-            if not any(kw in item['title'].lower() for kw in ['category:', 'update', 'disambiguation', 'week', 'mods/'])
-            and ItemName.lower() in item['title'].lower()
-        ]
+                **({"url": f"https://growtopia.fandom.com/wiki/{item['title'].replace(' ', '_')}"} if show_url else {})
+            } for item in data['items']]
+            return items
 
-        return items
     except requests.RequestException as error:
         raise Exception(f"Wiki fetch failed: {error}")
