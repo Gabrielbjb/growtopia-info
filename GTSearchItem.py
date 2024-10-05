@@ -19,7 +19,7 @@ def SearchItem(ItemName):
                 "url": f"https://growtopia.fandom.com/wiki/{item['title'].replace(' ', '_')}"
             } for item in data['query']['search']
             # Filter out items that are not actual items
-            if not any(kw in item['title'].lower() for kw in ['category:', 'update', 'disambiguation', 'week'])
+            if not any(kw in item['title'].lower() for kw in ['category:', 'update', 'disambiguation', 'week', 'mods/'])
             and ItemName.lower() in item['title'].lower()
         ]
 
