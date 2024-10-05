@@ -17,8 +17,10 @@ def ItemData(NameItem, Region = "en"):
                     for add in Properties:
                         hum = BeautifulSoup(str(add).replace("<br/>", "--split--"), "html.parser")
                         PropertiesResult.append(hum.text)
+                    properties = (PropertiesResult[1].strip()).split("--split--")
                     Result.update({"Description": PropertiesResult[0].strip()})
-                    Result.update({"Properties": (PropertiesResult[1].strip()).split("--split--")})
+                    Result.update({"Properties": "None" if properties == ['None'] else properties})
+
                     try:
                         Result.update({"Rarity": int(Rarity)})
                     except:
@@ -29,7 +31,7 @@ def ItemData(NameItem, Region = "en"):
                         DataResult = (((mus.text).split(",")))
                     res = 0 
                     while res <= (len(DataResult)-3):
-                        Result.update({DataResult[res].strip(): DataResult[res+1].strip()})
+                        Result.update({DataResult[res].strip().replace(" ", ""): DataResult[res+1].strip()})
                         res = res+2
                     check = 0
                     for fix in Result.keys():
@@ -67,8 +69,9 @@ def ItemData(NameItem, Region = "en"):
                         for add in Properties:
                             hum = BeautifulSoup(str(add).replace("<br/>", "--split--"), "html.parser")
                             PropertiesResult.append(hum.text)
+                        properties = (PropertiesResult[1].strip()).split("--split--")
                         Result2.update({"Description": PropertiesResult[0].strip()})
-                        Result2.update({"Properties": (PropertiesResult[1].strip()).split("--split--")})
+                        Result2.update({"Properties": "None" if properties == ['None'] else properties})
 
                         try:
                             Result2.update({"Rarity": int(Rarity)})
@@ -81,7 +84,7 @@ def ItemData(NameItem, Region = "en"):
 
                         res = 0 
                         while res <= (len(DataResult)-3):
-                            Result2.update({DataResult[res].strip(): DataResult[res+1].strip()})
+                            Result2.update({DataResult[res].strip().replace(" ", ""): DataResult[res+1].strip()})
                             res = res+2  
 
                         check = 0
