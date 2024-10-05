@@ -42,6 +42,12 @@ def parse_html_result(html_result: BeautifulSoup, result: dict):
                 "Pickaxe": digits_list[1] if len(digits_list) > 1 else None,
                 "Restore": digits_list[2] if len(digits_list) > 2 else None
             }
+    
+    result["Sprite"] = {
+        "Item": html_result.select_one('div.card-header img')['src'],
+        "Tree": html_result.select_one('th:-soup-contains("Grow Time") + td img')['src'],
+        "Seed": html_result.select_one('td.seedColor img')['src']
+    }
 
 def get_item_title(html_result: BeautifulSoup) -> str:
     title_tag = html_result.find('span', class_="mw-headline")
@@ -60,6 +66,7 @@ def get_item_data(item_name, region="en"):
                 if len(html_result.select(".gtw-card")) == 1:
                     parse_html_result(html_result, result)
                     result["Title"] = get_item_title(html_result)
+                # Todo: IDK if this is really necessary?
                 else:
                     for html_result_tabber in html_result.select(".gtw-card"):   
                         tabber_result = {}   
@@ -74,7 +81,8 @@ def get_item_data(item_name, region="en"):
                         return result[item_name]
                     else:
                         return result
-            except:
+            except Exception as e:
+                print(e)
                 return {"Error": f"Sorry! I can't find {item_name} in Growtopia Fandom {region} Error Code 3"}            
         except IndexError:
             return {"Error": f"Sorry! I can't find {item_name} in Growtopia Fandom {region} Error Code 2"}
@@ -83,5 +91,5 @@ def get_item_data(item_name, region="en"):
 
 # Example usage
 if __name__ == "__main__":
-    item = get_item_data("ancestral tesseract")
+    item = get_item_data("dirt")
     print(item)
