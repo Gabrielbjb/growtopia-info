@@ -1,3 +1,4 @@
+from pprint import pprint
 from GTItemData import get_item_sprites, get_item_title, parse_html_content
 from GTSearchItem import get_raw_html
 
@@ -31,3 +32,8 @@ class GrowtopiaItem:
         item_sprites = get_item_sprites(self.__item_page)
         if include_title: item_sprites["Title"] = self.title
         return item_sprites
+
+# Example usage:
+item = GrowtopiaItem("Dirt")
+pprint(item.get_item_data())
+print(item.get_item_sprite())
