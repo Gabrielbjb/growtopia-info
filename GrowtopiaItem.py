@@ -1,6 +1,5 @@
-from GTItemData import get_item_title, parse_html_content
+from GTItemData import get_item_sprites, get_item_title, parse_html_content
 from GTSearchItem import get_raw_html
-
 
 class GrowtopiaItem:
     def __init__(self, item_name):
@@ -8,7 +7,7 @@ class GrowtopiaItem:
         self.title = query_found["Title"]
         self.url = query_found["Url"]
     
-    def get_item_data(self, include_subitems=False):
+    def get_item_data(self, include_subitems: bool = False) -> dict:
         result = {}
         if len(self.__item_page.select(".gtw-card")) == 1:
             parse_html_content(self.__item_page, result)
@@ -28,10 +27,7 @@ class GrowtopiaItem:
         result["URL"] = self.url
         return result
     
-    def get_item_sprite(self):
-        return {
-            "Title": self.title,
-            "Item": self.__item_page.select_one('div.card-header img')['src'],
-            "Tree": self.__item_page.select_one('th:-soup-contains("Grow Time") + td img')['src'],
-            "Seed": self.__item_page.select_one('td.seedColor img')['src']
-        }
+    def get_item_sprite(self, include_title: bool = False) -> dict:
+        item_sprites = get_item_sprites(self.__item_page)
+        if include_title: item_sprites["Title"] = self.title
+        return item_sprites

@@ -1,7 +1,5 @@
 from bs4 import BeautifulSoup
 
-from GTSearchItem import get_raw_html
-
 def parse_html_content(html_content: BeautifulSoup, result: dict):
     properties_result = []
     properties = html_content.find_all('div', class_="card-text")
@@ -41,7 +39,10 @@ def parse_html_content(html_content: BeautifulSoup, result: dict):
                 "Restore": digits_list[2] if len(digits_list) > 2 else None
             }
     
-    result["Sprite"] = {
+    result["Sprite"] = get_item_sprites(html_content)
+
+def get_item_sprites(html_content: BeautifulSoup) -> dict:
+    return {
         "Item": html_content.select_one('div.card-header img')['src'],
         "Tree": html_content.select_one('th:-soup-contains("Grow Time") + td img')['src'],
         "Seed": html_content.select_one('td.seedColor img')['src']
@@ -53,26 +54,3 @@ def get_item_title(html_content: BeautifulSoup) -> str:
     try: title_tag.small.decompose()
     except AttributeError: pass
     return title_tag.get_text(strip=True).replace(u'\xa0', u' ')
-    
-def get_item_data(item_name):
-    result = {}
-    html_content, query_found = get_raw_html(item_name)
-    if len(html_content.select(".gtw-card")) == 1:
-        parse_html_content(html_content, result)
-        result["Title"] = get_item_title(html_content)
-    # Todo: IDK if this is really necessary?
-    else:
-        for html_content_tabber in html_content.select(".gtw-card"):   
-            tabber_result = {}   
-            parse_html_content(html_content_tabber, tabber_result)
-            item_title = get_item_title(html_content_tabber)
-            result[item_title] = tabber_result
-            result[item_title]["Title"] = item_title
-    try:
-        return result[query_found["title"]]
-    except:
-        if item_name in result.keys():
-            return result[item_name]
-        else:
-            return result
-        
