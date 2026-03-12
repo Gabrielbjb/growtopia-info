@@ -2,6 +2,8 @@
 ![Banner](https://user-images.githubusercontent.com/111344809/189955249-85b71512-574e-47a3-8288-b0d4bc38d693.png)
 Welcome to growtopia-info! This code can search any info in Growtopia, like sprite, description, server status and more!
 
+Please note that this only works in the Growtopia Wiki Fandom version! If you want to get data from growtopiawiki.com, please use their official API.
+
 ## Download
 If you want to try this code, you can download it by writing this on CMD, PowerShell or Terminal
 ### Stable
